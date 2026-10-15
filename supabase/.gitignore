@@ -1,0 +1,6 @@
+# Generated local CLI state and credentials; config/migrations stay tracked.
+.temp/
+.branches/
+.env
+.env.*
+!.env.example

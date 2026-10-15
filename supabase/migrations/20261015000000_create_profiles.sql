@@ -1,4 +1,5 @@
-BEGIN;
+-- Initial schema for a fresh Supabase project.
+-- Supabase's GitHub integration runs each migration inside a transaction.
 CREATE TABLE public.profiles (
  user_id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
  input jsonb NOT NULL CHECK (jsonb_typeof(input)='object'),
@@ -10,4 +11,3 @@ REVOKE ALL ON public.profiles FROM anon, authenticated;
 GRANT SELECT ON public.profiles TO authenticated;
 CREATE POLICY owner_read ON public.profiles FOR SELECT TO authenticated USING ((SELECT auth.uid())=user_id);
 COMMENT ON TABLE public.profiles IS 'Private inputs; API validates and performs compare-and-swap writes.';
-COMMIT;

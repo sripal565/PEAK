@@ -1,0 +1,13 @@
+# Local project name, not the hosted Supabase project reference.
+project_id = "peak"
+
+[db]
+# Match this to the hosted project's Postgres major version before local testing.
+major_version = 17
+
+[db.migrations]
+enabled = true
+
+[db.seed]
+# No sample users, private imports, or synthetic exercise data in deployments.
+enabled = false
