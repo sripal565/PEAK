@@ -1,0 +1,2 @@
+import {Page,Card,Copy} from '../../src/ui/components.tsx';
+export default function Review(){return <Page title="Find your rhythm." subtitle="Notice what fits, then adjust."><Card title="Your first review is ahead"><Copy>Once sessions are available, review completed work, shorter fallbacks, and obstacles here. There is no missed-session debt.</Copy></Card><Card title="Progress stays honest"><Copy>Completed sessions and physical outcomes will be tracked separately. No outcome measure has been selected yet.</Copy></Card></Page>;}

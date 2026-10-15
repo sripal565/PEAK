@@ -1,0 +1,11 @@
+import pg from 'pg';
+import { z } from 'zod';
+import { buildApp } from './app.ts';
+import { postgresProfiles } from './features/profile/repository.ts';
+import { supabaseIdentity } from './auth/identity.ts';
+const env=z.object({SUPABASE_URL:z.url(),SUPABASE_PUBLISHABLE_KEY:z.string().min(1),DATABASE_URL:z.string().min(1),FOUNDER_USER_ID:z.uuid(),PORT:z.coerce.number().int().min(1).max(65535).default(8080)}).parse(process.env);
+const pool=new pg.Pool({connectionString:env.DATABASE_URL,max:5});
+const app=buildApp({founderId:env.FOUNDER_USER_ID,authenticate:supabaseIdentity(env.SUPABASE_URL,env.SUPABASE_PUBLISHABLE_KEY),profiles:postgresProfiles(pool)});
+app.addHook('onClose',async()=>{await pool.end();});
+await app.listen({port:env.PORT,host:'0.0.0.0'});
+for(const signal of ['SIGINT','SIGTERM'] as const)process.on(signal,async()=>{await app.close();process.exit(0);});

@@ -1,0 +1,48 @@
+{
+  "name": "movement-planner",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:domain": "vitest run packages/domain/test",
+    "test:api": "vitest run apps/api/test",
+    "test:worker": "vitest run apps/worker/test",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p apps/mobile/tsconfig.json",
+    "check": "npm run typecheck && npm test",
+    "dev:api": "node --env-file=.env --experimental-strip-types apps/api/src/main.ts",
+    "dev:mobile": "npm run start --workspace @movement/mobile",
+    "test:mobile": "vitest run apps/mobile/test"
+  },
+  "dependencies": {
+    "fastify": "^5.12.7",
+    "pg": "8.22.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "25.6.0",
+    "@types/pg": "8.20.0",
+    "@types/react": "19.2.10",
+    "tsx": "4.23.1",
+    "typescript": "6.0.3",
+    "vitest": "^4.1.11"
+  },
+  "overrides": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-reanimated": "4.5.1",
+    "react-native-worklets": "0.10.1"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true
+  }
+}
